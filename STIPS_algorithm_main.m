@@ -80,7 +80,6 @@ for timeframe=1:(szf(4)-1)
     y_ind=1;
 
     for y=1:length(tpn)
-
         if (ismember(y,saml_don_id)==1)
             continue;
         end
@@ -287,10 +286,6 @@ for timeframe=1:(szf(4)-1)
         clear unq_tptn
         unq_tptn=unique(Finalm2tp_m2tn_final);
 
-        %% plot to check if this works
-        %unq_tptn=nonzeros((~ismember(unq_tptnall,saml_don_id)).*unq_tptnall);
-        %unq_tptn=unq_tptnall; %wrepeats
-        %%
         all_tpj=[];
         all_tnb=[];
         clear tpj tnb pix_tpj pix_tnb t1_rc t2_rc;
@@ -333,10 +328,8 @@ for timeframe=1:(szf(4)-1)
             elseif (length(t2_rc{l})>1 && ~isempty(join_pix_tpj{l}))
                 clear clustsize clustid max_cid dist_temp S;
                 clustsize=length(pix_tnb{l});
-                %disp('alert');
-                %dump=input('y');
+            
 
-                %if length(join_pix_tpj{l}(:,1))>1
                 if (length(join_pix_tpj{l}(:,1)) <clustsize)
                     clear appd rr;
                     appd=clustsize-length(join_pix_tpj{l}(:,1))+1;
@@ -367,25 +360,18 @@ for timeframe=1:(szf(4)-1)
                     newradii=newradii+1;% rare case with only 1 element
                 end
                 if (newradii<radiuspix)
-                    %kmedoids
                     try
                         rng('default');
-                        %     clustid =spectralcluster(newcoord,clustsize,'SimilarityGraph','epsilon','Radius',newradii,...
-                        %         'LaplacianNormalization','symmetric','ClusterMethod','kmeans','kmedoids','euclidean');
-                        clustid =spectralcluster(newcoord,clustsize,'SimilarityGraph','epsilon','Radius',newradii);
+                         clustid =spectralcluster(newcoord,clustsize,'SimilarityGraph','epsilon','Radius',newradii);
 
                     catch
                         newradii=newradii+1;
                         rng('default');
-                        %     clustid =spectralcluster(newcoord,clustsize,'SimilarityGraph','epsilon','Radius',newradii,...
-                        %         'LaplacianNormalization','symmetric','ClusterMethod','kmedoids','Distance','euclidean');
-                    end
+                              end
                     clustid =spectralcluster(newcoord,clustsize,'SimilarityGraph','epsilon','Radius',newradii);
                 else
                     rng('default');
-                    %     clustid =spectralcluster(newcoord,clustsize,'SimilarityGraph','epsilon','Radius',radiuspix,...
-                    %         'LaplacianNormalization','symmetric','ClusterMethod','kmedoids','Distance','euclidean');
-                    clustid =spectralcluster(newcoord,clustsize,'SimilarityGraph','epsilon','Radius',radiuspix);
+                            clustid =spectralcluster(newcoord,clustsize,'SimilarityGraph','epsilon','Radius',radiuspix);
                 end
 
                 max_cid=max(clustid);
@@ -397,14 +383,7 @@ for timeframe=1:(szf(4)-1)
                         centpx_tp{l}(mi,1:2)=mean(fin_pix_tpj{l}{mi});
                     end
                 end
-                %else
-                % fin_pix_tpj{l} = cat(1,join_pix_tpj{l});
-                % if (numel(fin_pix_tpj{l})==2)
-                %     centpx_tp{l}=fin_pix_tpj{l};
-                % else
-                %     centpx_tp{l}=geomean(fin_pix_tpj{l});
-                % end
-                %end
+           
                 clear clustsize clustid max_cid;
                 %*******************************************************************
             elseif (length(t2_rc{l})>=1 && isempty(join_pix_tpj{l}))
@@ -488,8 +467,7 @@ for timeframe=1:(szf(4)-1)
             new_stats_asgn(y_ind).Tnflag=unq_all_tnb;
             y_ind= y_ind+1;
             %disp('1st condi');
-            %%&& length(fin_pix_tpj{l}(:,1))>2
-            %%error
+           
             %*******************************************************************
         elseif (isempty(act_t1_rc) && len_unq_all_tnb>1)
             %disp('halt!');
