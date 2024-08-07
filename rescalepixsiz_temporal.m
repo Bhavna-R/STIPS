@@ -45,33 +45,3 @@ for f=1:length(topadarray)
     pxdsResults{f} = semanticseg(inprsz{f},nw,'OutputType','categorical');
 end
 px_xysz(1)=(padsz(1)*pixmic)./256;
-
-% for f=1:length(fileraw)
-%     rwimg{f}=imread([fileraw(f).folder,'/',fileraw(f).name]);
-%     orisz=size(rwimg{f});
-%     szmax(f)=max(orisz(1),orisz(2));
-% end
-% [ma,is]=max(szmax);
-% if (mod(ma,2)~=0)
-%     ma=ma+1;
-% end
-% for f=1:length(fileraw)
-%     rwimg{f}=imread([fileraw(f).folder,'/',fileraw(f).name]);
-%     orisz=size(rwimg{f});
-%     szx=ma-orisz(1);
-%     szy=ma-orisz(2);        
-%         padarr{f} = padarray(rwimg{f},[szx szy],'post');
-%     
-%     padsz=size(padarr{f});
-%     inprsz=imresize(padarr{f},[256 256]);
-%     pxdsResults{f} = semanticseg(inprsz,nw,'OutputType','categorical');
-% end
-
-
-% nwsegmented= cellfun(@uint8,pxdsResults,'UniformOutput',false);
-% nw_binar= cellfun(@imbinarize,nwsegmented,'UniformOutput',false);
-% nwbinary=nw_binar;
-% SE = strel(2);
-% 
-% nw_binar_fill=cellfun(@(x) (imclose(x,SE)),nw_binar,'UniformOutput',false);
-%     
