@@ -6,8 +6,16 @@ function [stats_t1, stats_t2,t2_joins_binar,t2_joinsbyt1]= consec_pixelsinfo_cel
 clearvars -except timeframe Rf1 px_xysz
 
 timeframenext=timeframe+1;
-t1=imcrop((Rf1{1, timeframe}),[75 50 100 100]); 
-t2=imcrop((Rf1{1, timeframenext}),[75 50 100 100]);
+cell_centre=1;
+%% for whole cell, set cell_centre=0;
+
+if cell_centre==1 % cell cropped region
+  t1=imcrop((Rf1{1, timeframe}),[75 50 100 100]); 
+  t2=imcrop((Rf1{1, timeframenext}),[75 50 100 100]);
+else %% whole cell
+  t1=Rf1{1, timeframe};
+  t2=Rf1{1, timeframenext};
+end
 
 t2byt1=t2./t1;
 
